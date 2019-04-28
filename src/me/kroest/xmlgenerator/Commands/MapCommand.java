@@ -25,6 +25,12 @@ public class MapCommand implements CommandExecutor{
             }
 
             if(args.length > 0) {
+                if(args[0].equals("reset")){
+                    globals.resetMap(player);
+                    player.sendMessage("Resetted map succesfully.");
+                    return true;
+                }
+
                 if (args[0].equals("generate")) {
                     if(globals.map.name.length() < 1){
                         player.sendMessage("Please specify a map name.");

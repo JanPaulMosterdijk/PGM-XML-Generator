@@ -30,21 +30,6 @@ public class RootXML {
     Globals globals;
 
     public Element mapElement;
-    public Element nameElement;
-    public Element objectiveElement;
-    public Element authorsElement;
-    public Element kitsElement;
-    public Element toolrepairElement;
-    public Element itemremoveElement;
-    public Element spawnsElement;
-    public Element filtersElement;
-    public Element regionsElement;
-    public Element woolsElement;
-    public Element maxbuildheightElement;
-    public Element killrewardElement;
-    public Element denyAllElement;
-    public Element negativeElement;
-    public Element enterAllElement;
 
     public RootXML(Document doc, Globals globals){
         this.doc = doc;
@@ -67,22 +52,22 @@ public class RootXML {
         mapElement = doc.createElement("map");
         doc.appendChild(mapElement);
 
-        nameElement = doc.createElement("name");
+        Element nameElement = doc.createElement("name");
         nameElement.appendChild(doc.createTextNode(map.name));
         mapElement.appendChild(nameElement);
 
-        objectiveElement = doc.createElement("objective");
+        Element objectiveElement = doc.createElement("objective");
         objectiveElement.appendChild(doc.createTextNode(map.objective));
         mapElement.appendChild(objectiveElement);
 
-        authorsElement = doc.createElement("authors");
+        Element authorsElement = doc.createElement("authors");
         authorsElement.setAttribute("uuid", map.author.getUniqueId().toString());
         mapElement.appendChild(authorsElement);
 
-        filtersElement = doc.createElement("filters");
+        Element filtersElement = doc.createElement("filters");
         mapElement.appendChild(filtersElement);
 
-        kitsElement = doc.createElement("kits");
+        Element kitsElement = doc.createElement("kits");
         for (Team t: map.kits.keySet()) {
             Kit k = map.kits.get(t);
 
@@ -94,13 +79,13 @@ public class RootXML {
         mapElement.appendChild(kitsElement);
 
 
-        toolrepairElement = doc.createElement("toolrepair");
+        Element toolrepairElement = doc.createElement("toolrepair");
         mapElement.appendChild(toolrepairElement);
 
-        itemremoveElement = doc.createElement("itemremove");
+        Element itemremoveElement = doc.createElement("itemremove");
         mapElement.appendChild(itemremoveElement);
 
-        spawnsElement = doc.createElement("spawns");
+        Element spawnsElement = doc.createElement("spawns");
         for (Team t: map.spawns.keySet()) {
             for (Spawn s : map.spawns.get(t)) {
                 s.team = t;
@@ -110,16 +95,16 @@ public class RootXML {
         mapElement.appendChild(spawnsElement);
 
 
-        regionsElement = doc.createElement("regions");
+        Element regionsElement = doc.createElement("regions");
         mapElement.appendChild(regionsElement);
 
         // TODO: 24-Apr-19 check if wools got defined
         //if(map.)
-        woolsElement = doc.createElement("wools");
+        Element woolsElement = doc.createElement("wools");
         mapElement.appendChild(woolsElement);
 
         // TODO: 24-Apr-19 add killreward support
-        killrewardElement = doc.createElement("killreward");
+        Element killrewardElement = doc.createElement("killreward");
         mapElement.appendChild(killrewardElement);
 
 
@@ -134,15 +119,18 @@ public class RootXML {
         filtersElement.appendChild(voidFilter);
 
         if(map.maxBuildHeight > 0) {
-            maxbuildheightElement = doc.createElement("maxbuildheight");
+            Element maxbuildheightElement = doc.createElement("maxbuildheight");
             maxbuildheightElement.appendChild(doc.createTextNode(Integer.toString(map.maxBuildHeight)));
             mapElement.appendChild(maxbuildheightElement);
         }
 
-        //teams filter
+        Element teamsElement = doc.createElement("teams");
+        mapElement.appendChild(teamsElement);
+        //teams
         for (Team t: map.teams) {
             if(!t.name.equalsIgnoreCase("all")) {
-                filtersElement.appendChild(t.getElement());
+                filtersElement.appendChild(t.getFilterElement());
+                teamsElement.appendChild(t.getElement());
             }
         }
 
@@ -151,7 +139,7 @@ public class RootXML {
             Set<FilterType> keys = map.regions.get(t).keySet();
             for (FilterType f: keys) {
                 if(f == FilterType.BLOCK && map.regions.get(t).get(f).size() > 0) {
-                    denyAllElement = doc.createElement("apply");
+                    Element denyAllElement = doc.createElement("apply");
                     denyAllElement.setAttribute("block", t.name);
                     regionsElement.appendChild(denyAllElement);
 
@@ -162,7 +150,7 @@ public class RootXML {
 
                 if(f == FilterType.ENTER && map.regions.get(t).get(f).size() > 0){
                     //enter filter
-                    enterAllElement = doc.createElement("apply");
+                    Element enterAllElement = doc.createElement("apply");
                     enterAllElement.setAttribute("enter", t.name);
                     regionsElement.appendChild(enterAllElement);
 
@@ -176,7 +164,7 @@ public class RootXML {
                     applyVoidElement.setAttribute("block", "void");
 
                     regionsElement.appendChild(applyVoidElement);
-                    negativeElement = doc.createElement("negative");
+                    Element negativeElement = doc.createElement("negative");
                     applyVoidElement.appendChild(negativeElement);
 
                     for (Region r : map.regions.get(t).get(f)) {

@@ -18,8 +18,11 @@ public class Rectangle extends Region{
 
     void fixCoords(){
         //ceiling every axis
-        ceilPositions(min.x, max.x);
-        ceilPositions(min.z, max.z);
+        min.x = ceilPositions(min.x, max.x)[0];
+        max.x = ceilPositions(min.x, max.x)[1];
+
+        min.z = ceilPositions(min.z, max.z)[0];
+        max.z = ceilPositions(min.z, max.z)[1];
     }
 
     @Override

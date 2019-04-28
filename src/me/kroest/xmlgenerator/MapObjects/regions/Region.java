@@ -9,7 +9,7 @@ public abstract class Region extends MapObject{
         super(doc);
     }
 
-    public void ceilPositions(double p1, double p2){
+    public double[] ceilPositions(double p1, double p2){
         if(p1 <= p2){
             p1 = Math.ceil(p1);
             p2 = Math.ceil(p2)+1;
@@ -19,6 +19,7 @@ public abstract class Region extends MapObject{
             p1 = Math.ceil(p1)+1;
             p2 = Math.ceil(p2);
         }
+        return new double[]{p1,p2};
     }
 
     @Override
