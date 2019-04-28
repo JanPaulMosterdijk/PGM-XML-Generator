@@ -14,6 +14,7 @@ import java.io.File;
 public class Main extends JavaPlugin {
     public Globals globals;
 
+
     @Override
     public void onEnable() {
         File f = new File(getDataFolder() + "/");
@@ -30,7 +31,7 @@ public class Main extends JavaPlugin {
             pce.printStackTrace();
         }
 
-        globals = new Globals(doc, getDataFolder().toString());
+        globals = new Globals(doc, getDataFolder().toString(), getServer());
 
         this.getCommand("map").setExecutor(new MapCommand(globals));
         this.getCommand("region").setExecutor(new RegionCommand(globals));

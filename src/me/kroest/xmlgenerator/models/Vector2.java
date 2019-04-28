@@ -8,4 +8,9 @@ public class Vector2 {
         this.x = x;
         this.z = z;
     }
+
+    @Override
+    public String toString() {
+        return x + "," + z;
+    }
 }

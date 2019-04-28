@@ -26,6 +26,11 @@ public class MapCommand implements CommandExecutor{
 
             if(args.length > 0) {
                 if (args[0].equals("generate")) {
+                    if(globals.map.name.length() < 1){
+                        player.sendMessage("Please specify a map name.");
+                        return false;
+                    }
+
                     if (globals.rootXML.generateXML()) {
                         player.sendMessage("successfully generated xml of map: " + globals.map.name + ".");
                         return true;
@@ -53,7 +58,7 @@ public class MapCommand implements CommandExecutor{
                     }
 
                     if (globals.map == null) {
-                        globals.map = new Map(mapText, player, globals.doc);
+                        globals.map = new Map(mapText, player, globals.doc, globals);
                     }
 
                     globals.map.name = mapText;

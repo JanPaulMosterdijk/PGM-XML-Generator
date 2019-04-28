@@ -1,7 +1,12 @@
 package me.kroest.xmlgenerator.MapObjects;
 
+import me.kroest.xmlgenerator.Globals;
 import net.minecraft.server.v1_13_R2.ItemArmor;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.Server;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.Damageable;
@@ -13,10 +18,12 @@ public class Kit extends MapObject {
 
     public PlayerInventory i;
     public Team team;
+    Globals globals;
 
-    public Kit(PlayerInventory playerInventory, Document doc) {
+    public Kit(PlayerInventory playerInventory, Document doc, Globals globals) {
         super(doc);
         this.i = playerInventory;
+        this.globals = globals;
     }
 
     String itemStackEnchantsToString(ItemStack is){
@@ -43,10 +50,11 @@ public class Kit extends MapObject {
             if (i.getHelmet().getItemMeta().hasEnchants()) {
                 helmetElement.setAttribute("enchantment", itemStackEnchantsToString(i.getHelmet()));
             }
-
-            LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getHelmet().getItemMeta();
-            if((leatherArmorMeta.getColor() != null)){
-                helmetElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+            if(i.getHelmet().getType() == Material.LEATHER_HELMET) {
+                LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getHelmet().getItemMeta();
+                if ((leatherArmorMeta.getColor() !=  globals.server.getItemFactory().getDefaultLeatherColor())) {
+                    helmetElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+                }
             }
 
             helmetElement.appendChild(doc.createTextNode(i.getHelmet().getType().toString()));
@@ -60,10 +68,11 @@ public class Kit extends MapObject {
             if (i.getChestplate().getItemMeta().hasEnchants()) {
                 chestplateElement.setAttribute("enchantment", itemStackEnchantsToString(i.getChestplate()));
             }
-
-            LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getChestplate().getItemMeta();
-            if((leatherArmorMeta.getColor() != null)){
-                chestplateElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+            if(i.getChestplate().getType() == Material.LEATHER_CHESTPLATE) {
+                LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getChestplate().getItemMeta();
+                if ((leatherArmorMeta.getColor() !=  globals.server.getItemFactory().getDefaultLeatherColor())) {
+                    chestplateElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+                }
             }
 
             chestplateElement.appendChild(doc.createTextNode(i.getChestplate().getType().toString()));
@@ -78,9 +87,11 @@ public class Kit extends MapObject {
                 leggingsElement.setAttribute("enchantment", itemStackEnchantsToString(i.getLeggings()));
             }
 
-            LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getLeggings().getItemMeta();
-            if((leatherArmorMeta.getColor() != null )){
-                leggingsElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+            if(i.getLeggings().getType() == Material.LEATHER_LEGGINGS) {
+                LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getLeggings().getItemMeta();
+                if ((leatherArmorMeta.getColor() !=  globals.server.getItemFactory().getDefaultLeatherColor())) {
+                    leggingsElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+                }
             }
 
             leggingsElement.appendChild(doc.createTextNode(i.getLeggings().getType().toString()));
@@ -94,10 +105,11 @@ public class Kit extends MapObject {
             if (i.getBoots().getItemMeta().hasEnchants()) {
                 bootsElement.setAttribute("enchantment", itemStackEnchantsToString(i.getBoots()));
             }
-
-            LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getBoots().getItemMeta();
-            if((leatherArmorMeta.getColor() != null )){
-                bootsElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+            if(i.getBoots().getType() == Material.LEATHER_BOOTS) {
+                LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) i.getBoots().getItemMeta();
+                if ((leatherArmorMeta.getColor() !=  globals.server.getItemFactory().getDefaultLeatherColor())) {
+                    bootsElement.setAttribute("color", Integer.toString(leatherArmorMeta.getColor().asRGB()));
+                }
             }
 
             bootsElement.appendChild(doc.createTextNode(i.getBoots().getType().toString()));

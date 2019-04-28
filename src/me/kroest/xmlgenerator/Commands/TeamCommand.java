@@ -26,7 +26,7 @@ public class TeamCommand implements CommandExecutor{
 
             else {
                 if(args[0].equals("add")){
-                    Team t = new Team();
+                    Team t = new Team(globals.doc);
                     t.name = args[1];
                     globals.map.addTeam(t);
                     player.sendMessage("Added team : '" + t.name + "'");

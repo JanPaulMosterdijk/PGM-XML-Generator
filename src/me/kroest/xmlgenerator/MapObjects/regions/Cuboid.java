@@ -8,7 +8,6 @@ import org.w3c.dom.Element;
 public class Cuboid extends Region {
     public Vector3 min;
     public Vector3 max;
-    Document doc;
 
     public Cuboid(Vector min, Vector max, Document doc) {
         super(doc);
