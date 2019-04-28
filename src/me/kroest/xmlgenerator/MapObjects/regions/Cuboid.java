@@ -18,9 +18,14 @@ public class Cuboid extends Region {
 
     void fixCoords(){
         //ceiling every axis
-        ceilPositions(min.x, max.x);
-        ceilPositions(min.y, max.y);
-        ceilPositions(min.z, max.z);
+        min.x = ceilPositions(min.x, max.x)[0];
+        max.x = ceilPositions(min.x, max.x)[1];
+
+        min.y = ceilPositions(min.y, max.y)[0];
+        max.y = ceilPositions(min.y, max.y)[1];
+
+        min.z = ceilPositions(min.z, max.z)[0];
+        max.z = ceilPositions(min.z, max.z)[1];
     }
 
     @Override
