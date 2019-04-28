@@ -46,7 +46,7 @@ public class RegionCommand implements CommandExecutor {
                         r = new Cuboid(globals.pos1, globals.pos2, globals.doc);
                         break;
                     case "rectangle":
-                        r = new Rectangle(globals.pos1, globals.pos2);
+                        r = new Rectangle(globals.pos1, globals.pos2, globals.doc);
                         break;
                     case "cylinder":
                         //args needs to be at least 4, possibly checking if fields are correct

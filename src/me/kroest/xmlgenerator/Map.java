@@ -27,13 +27,15 @@ public class Map {
     public Document doc;
     public int maxBuildHeight;
     public HashMap<ObjectiveType, ArrayList<Objective>> objectives;
+    Globals globals;
 
-    public Map(String name, Player player, Document doc){
+    public Map(String name, Player player, Document doc, Globals globals){
         this.doc = doc;
         objective = "";
         this.name = name;
         this.author = player;
         this.maxBuildHeight = 0;
+        this.globals = globals;
 
         teams = new ArrayList<>();
         regions = new HashMap<>();
@@ -63,7 +65,7 @@ public class Map {
 
     public boolean setKit(PlayerInventory i, Team t){
         if(kits.containsKey(t)){
-            kits.put(t, new Kit(i, doc));
+            kits.put(t, new Kit(i, doc, globals));
             return true;
         }
         else {

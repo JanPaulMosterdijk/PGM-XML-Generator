@@ -1,5 +1,6 @@
 package me.kroest.xmlgenerator;
 
+import org.bukkit.Server;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 import org.w3c.dom.Document;
@@ -12,11 +13,13 @@ public class Globals {
     public RootXML rootXML;
     public String rootFolder;
     public Inventory selectedInv;
+    public Server server;
 
-    public Globals(Document doc, String rootFolder){
+    public Globals(Document doc, String rootFolder, Server server){
         this.doc = doc;
+        this.server = server;
         this.rootFolder = rootFolder;
-        map = new Map("", null, doc);
+        map = new Map("", null, doc, this);
         rootXML = new RootXML(doc, this);
     }
 }

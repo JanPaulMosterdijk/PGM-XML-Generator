@@ -53,7 +53,7 @@ public class MapCommand implements CommandExecutor{
                     }
 
                     if (globals.map == null) {
-                        globals.map = new Map(mapText, player, globals.doc);
+                        globals.map = new Map(mapText, player, globals.doc, globals);
                     }
 
                     globals.map.name = mapText;
