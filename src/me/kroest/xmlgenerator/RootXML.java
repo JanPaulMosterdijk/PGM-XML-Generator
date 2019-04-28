@@ -194,7 +194,11 @@ public class RootXML {
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(globals.rootFolder + "\\map.xml"));
+
+            new File(globals.rootFolder + "\\" + map.author.getUniqueId().toString()).mkdirs();
+            new File(globals.rootFolder + "\\" + map.author.getUniqueId().toString() + "\\" + map.name).mkdirs();
+
+            StreamResult result = new StreamResult(new File(globals.rootFolder + "\\" + map.author.getUniqueId().toString() + "\\" + map.name + "\\map.xml"));
             transformer.transform(source, result);
 
             return true;
